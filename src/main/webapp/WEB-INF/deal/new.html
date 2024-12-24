@@ -2,61 +2,157 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thêm mới giao dịch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        span {
+            color: red;
+            font-size: 12px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        div > div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        div > div label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 <head th:replace="/layout :: head">
-<h1>Thêm mới giao dịch</h1>
-<form th:action="@{/deal/new}" th:object="${deal}" method="post">
-    <div>
-        <label>Mã giao dịch:</label>
-        <input type="text" th:field="*{dealCode}"/>
-        <span th:if="${#fields.hasErrors('dealCode')}"
-              th:errors="*{dealCode}"></span>
-    </div>
-    <div>
-        <label>Khách hàng:</label>
-        <select th:field="*{customer}">
-            <option value="" disabled>-- Chọn khách hàng --</option>
-            <option th:each="customer : ${customers}"
-                    th:value="${customer.id}"
-                    th:text="${customer.fullname}"></option>
-        </select>
-        <span th:if="${#fields.hasErrors('customer')}"
-              th:errors="*{customer}"></span>
-    </div>
-    <div>
-        <label>Loại dịch vụ:</label>
-        <select id="serviceType" name="serviceType" required>
-            <option th:each="serviceType : ${serviceTypes}"
-                    th:value="${serviceType.id}"
-                    th:text="${serviceType.name}"></option>
-        </select>
-        <span th:if="${#fields.hasErrors('serviceType')}"
-              th:errors="*{serviceType}"></span>
-    </div>
-    <div>
+    <h1>Thêm mới giao dịch</h1>
+    <form th:action="@{/deal/new}" th:object="${deal}" method="post">
+        <div>
+            <label>Mã giao dịch:</label>
+            <input type="text" th:field="*{dealCode}"/>
+            <span th:if="${#fields.hasErrors('dealCode')}"
+                  th:errors="*{dealCode}"></span>
+        </div>
+        <div>
+            <label>Khách hàng:</label>
+            <select th:field="*{customer}">
+                <option value="" disabled>-- Chọn khách hàng --</option>
+                <option th:each="customer : ${customers}"
+                        th:value="${customer.id}"
+                        th:text="${customer.fullname}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('customer')}"
+                  th:errors="*{customer}"></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px">
+            <label>Loại dịch vụ:</label>
+            <div style="display: flex">
+                <div th:each="serviceType : ${serviceTypes}">
+                    <label>
+                        <input type="radio" name="serviceType" th:value="${serviceType.id}"/>
+                        <span th:text="${serviceType.name}"></span>
+                    </label>
+                </div>
+            </div>
+            <span th:if="${#fields.hasErrors('serviceType')}" th:errors="*{serviceType}"></span>
+        </div>
+
         <label>Ngày giao dịch:</label>
         <input type="date" th:field="*{dateOfDeal}"/>
         <span th:if="${#fields.hasErrors('dateOfDeal')}"
               th:errors="*{dateOfDeal}"></span>
-    </div>
-    <div>
-        <label>Đơn giá (VND/m2):</label>
-        <input type="number" th:field="*{price}"/>
-        <span th:if="${#fields.hasErrors('price')}"
-              th:errors="*{price}"></span>
-    </div>
-    <div>
-        <label>Diện tích (m2):</label>
-        <input type="number" th:field="*{acreage}"/>
-        <span th:if="${#fields.hasErrors('acreage')}"
-              th:errors="*{acreage}"></span>
-    </div>
-    <div>
-        <button type="submit">Thêm mới</button>
-    </div>
-</form>
-<a th:href="@{/deal}">Quay lại danh sách</a>
-<footer th:replace="/layout :: footer"></footer>
+        </div>
+        <div style="margin-top: 16px">
+            <label>Đơn giá (VND):</label>
+            <input type="number" th:field="*{price}"/>
+            <span th:if="${#fields.hasErrors('price')}"
+                  th:errors="*{price}"></span>
+        </div>
+        <div>
+            <label>Diện tích (m2):</label>
+            <input type="number" th:field="*{acreage}"/>
+            <span th:if="${#fields.hasErrors('acreage')}"
+                  th:errors="*{acreage}"></span>
+        </div>
+        <div>
+            <button type="submit">Thêm mới</button>
+        </div>
+    </form>
+    <a th:href="@{/deal}">Quay lại danh sách</a>
+    <footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

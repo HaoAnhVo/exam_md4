@@ -1,7 +1,6 @@
 package com.codegym.exam_final_md4.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "service_type")
@@ -14,8 +13,13 @@ public class ServiceType {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "serviceType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Deal> deals;
+    public ServiceType() {
+    }
+
+    public ServiceType(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -33,11 +37,4 @@ public class ServiceType {
         this.name = name;
     }
 
-    public Set<Deal> getDeals() {
-        return deals;
-    }
-
-    public void setDeals(Set<Deal> deals) {
-        this.deals = deals;
-    }
 }

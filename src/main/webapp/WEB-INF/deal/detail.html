@@ -1,38 +1,113 @@
-<h2>Chi tiết giao dịch</h2>
-<table>
-  <tr>
-    <td>Mã giao dịch:</td>
-    <td th:text="${deal.dealCode}"></td>
-  </tr>
-  <tr>
-    <td>Loại dịch vụ:</td>
-    <td th:text="${deal.serviceType}"></td>
-  </tr>
-  <tr>
-    <td>Ngày giao dịch:</td>
-    <td th:text="${deal.dateOfDeal}"></td>
-  </tr>
-  <tr>
-    <td>Đơn giá (VND/m2):</td>
-    <td th:text="${deal.price}"></td>
-  </tr>
-  <tr>
-    <td>Diện tích (m2):</td>
-    <td th:text="${deal.acreage}"></td>
-  </tr>
-  <tr>
-    <td>Tên khách hàng:</td>
-    <td th:text="${customer.fullname}"></td>
-  </tr>
-  <tr>
-    <td>Số điện thoại:</td>
-    <td th:text="${customer.phone}"></td>
-  </tr>
-  <tr>
-    <td>Email:</td>
-    <td th:text="${customer.email}"></td>
-  </tr>
-</table>
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chi tiết giao dịch</title>
+    <style>
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-<a href="#" th:href="@{/deal}">Quay lại</a>
+        .deal-detail {
+            margin: 0 auto;
+            width: 80%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
 
+        .deal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .deal-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .deal-table .label {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            color: #555;
+        }
+
+        .deal-table td:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .deal-table td:nth-child(even) {
+            background-color: #fff;
+        }
+
+        .back-btn,.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover, .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<h2 class="page-title">Chi tiết giao dịch</h2>
+<div class="deal-detail">
+    <table class="deal-table">
+        <tr>
+            <td class="label">Mã giao dịch:</td>
+            <td th:text="${deal.dealCode}"></td>
+        </tr>
+        <tr>
+            <td class="label">Loại dịch vụ:</td>
+            <td th:text="${deal.serviceType.name}"></td>
+        </tr>
+        <tr>
+            <td class="label">Ngày giao dịch:</td>
+            <td th:text="${formattedDate}"></td>
+        </tr>
+        <tr>
+            <td class="label">Đơn giá (VND/m2):</td>
+            <td th:text="${deal.price}"></td>
+        </tr>
+        <tr>
+            <td class="label">Diện tích (m2):</td>
+            <td th:text="${deal.acreage}"></td>
+        </tr>
+        <tr>
+            <td class="label">Tên khách hàng:</td>
+            <td th:text="${customer.fullname}"></td>
+        </tr>
+        <tr>
+            <td class="label">Số điện thoại:</td>
+            <td th:text="${customer.phone}"></td>
+        </tr>
+        <tr>
+            <td class="label">Email:</td>
+            <td th:text="${customer.email}"></td>
+        </tr>
+    </table>
+</div>
+
+<a href="#" th:href="@{/deal}" class="back-btn">Quay lại</a>
+<a style="background: crimson" class="btn" th:href="@{/deal/delete/{id}(id=${deal.getId()})}"
+   onclick="return confirm('Bạn chắc chắn muốn xóa giao dịch này?')">Xóa</a>
+
+</body>
+</html>

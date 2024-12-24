@@ -21,10 +21,12 @@
     <label>
       Loại dịch vụ:
       <select name="serviceType">
-        <option value="">Tất cả</option>
+        <option value="0" th:selected="${serviceTypeId == null}">Tất cả</option>
         <option th:each="serviceType : ${serviceTypes}"
-                th:value="${serviceType}"
-                th:text="${serviceType}"></option>
+                th:value="${serviceType.id}"
+                th:text="${serviceType.name}"
+                th:selected="${serviceType.id == serviceTypeId}">
+        </option>
       </select>
     </label>
     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -39,7 +41,7 @@
 <table id="deals">
   <thead>
   <tr>
-    <th>Mã</th>
+    <th>Mã giao dịch</th>
     <th>Tên khách hàng</th>
     <th>Loại dịch vụ</th>
     <th>Ngày giao dịch</th>
@@ -52,13 +54,13 @@
   <tr th:each="deal : ${deals}">
     <td th:text="${deal.dealCode}"></td>
     <td th:text="${deal.customer.fullname}"></td>
-    <td th:text="${deal.serviceType}"></td>
-    <td th:text="${deal.dateOfDeal}"></td>
+    <td th:text="${deal.serviceType.name}"></td>
+    <td th:text="${deal.formattedDate}"></td>
     <td th:text="${deal.price}"></td>
     <td th:text="${deal.acreage}"></td>
     <td>
       <a style="background: #28a745" class="btn" th:href="@{/deal/{id}(id=${deal.getId()})}">Chi tiết</a>
-                  <a style="background: crimson" class="btn" th:href="@{/deal/delete/{id}(id=${deal.getId()})}"
+      <a style="background: crimson" class="btn" th:href="@{/deal/delete/{id}(id=${deal.getId()})}"
                      onclick="return confirm('Bạn chắc chắn muốn xóa giao dịch này?')">Xóa</a>
     </td>
   </tr>

@@ -27,9 +27,12 @@ public class Deal {
     @NotNull(message = "Ngày giao dịch không được để trống.")
     private LocalDate dateOfDeal;
 
+    @Transient
+    private String formattedDate;
+
     @ManyToOne
     @JoinColumn(name = "service_type_id", nullable = false)
-    @NotBlank(message = "Loại dịch vụ không được để trống.")
+    @NotNull(message = "Loại dịch vụ không được để trống.")
     private ServiceType  serviceType;
 
     @Column(name = "price")
@@ -48,6 +51,17 @@ public class Deal {
     private String dealCode;
 
     public Deal() {
+    }
+
+    public Deal(Long id, Customer customer, LocalDate dateOfDeal, String formattedDate, ServiceType serviceType, BigDecimal price, BigDecimal acreage, String dealCode) {
+        this.id = id;
+        this.customer = customer;
+        this.dateOfDeal = dateOfDeal;
+        this.formattedDate = formattedDate;
+        this.serviceType = serviceType;
+        this.price = price;
+        this.acreage = acreage;
+        this.dealCode = dealCode;
     }
 
     public Long getId() {
@@ -74,11 +88,19 @@ public class Deal {
         this.dateOfDeal = dateOfDeal;
     }
 
-    public @NotBlank(message = "Loại dịch vụ không được để trống.") ServiceType getServiceType() {
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
+
+    public @NotNull(message = "Loại dịch vụ không được để trống.") ServiceType getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(@NotBlank(message = "Loại dịch vụ không được để trống.") ServiceType serviceType) {
+    public void setServiceType(@NotNull(message = "Loại dịch vụ không được để trống.") ServiceType serviceType) {
         this.serviceType = serviceType;
     }
 
