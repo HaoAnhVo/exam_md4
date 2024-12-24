@@ -71,43 +71,45 @@
 <div class="deal-detail">
     <table class="deal-table">
         <tr>
-            <td class="label">Mã giao dịch:</td>
+            <td class="label">Mã giao dịch</td>
             <td th:text="${deal.dealCode}"></td>
         </tr>
         <tr>
-            <td class="label">Loại dịch vụ:</td>
+            <td class="label">Loại bất động sản</td>
             <td th:text="${deal.serviceType.name}"></td>
         </tr>
         <tr>
-            <td class="label">Ngày giao dịch:</td>
+            <td class="label">Ngày giao dịch</td>
             <td th:text="${formattedDate}"></td>
         </tr>
         <tr>
-            <td class="label">Đơn giá (VND/m2):</td>
-            <td th:text="${deal.price}"></td>
+            <td class="label">Đơn giá (VND)</td>
+            <td th:text="${deal.formattedPrice}"></td>
         </tr>
         <tr>
-            <td class="label">Diện tích (m2):</td>
+            <td class="label">Diện tích (m2)</td>
             <td th:text="${deal.acreage}"></td>
         </tr>
         <tr>
-            <td class="label">Tên khách hàng:</td>
+            <td class="label">Tên khách hàng</td>
             <td th:text="${customer.fullname}"></td>
         </tr>
         <tr>
-            <td class="label">Số điện thoại:</td>
+            <td class="label">Số điện thoại</td>
             <td th:text="${customer.phone}"></td>
         </tr>
         <tr>
-            <td class="label">Email:</td>
+            <td class="label">Email</td>
             <td th:text="${customer.email}"></td>
         </tr>
     </table>
 </div>
 
-<a href="#" th:href="@{/deal}" class="back-btn">Quay lại</a>
-<a style="background: crimson" class="btn" th:href="@{/deal/delete/{id}(id=${deal.getId()})}"
-   onclick="return confirm('Bạn chắc chắn muốn xóa giao dịch này?')">Xóa</a>
+<div style="text-align: center">
+    <a href="#" th:href="@{/deal}" class="back-btn">Quay lại</a>
+    <a style="background: crimson; margin-left: 30px" class="btn" th:href="@{/deal/delete/{id}(id=${deal.getId()})}"
+       onclick="return confirm('Bạn chắc chắn muốn xóa giao dịch này?')">Xóa</a>
+</div>
 
 </body>
 </html>

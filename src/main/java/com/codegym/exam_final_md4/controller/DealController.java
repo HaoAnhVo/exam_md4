@@ -1,5 +1,6 @@
 package com.codegym.exam_final_md4.controller;
 
+import com.codegym.exam_final_md4.formatter.CurrencyFormatterUtil;
 import com.codegym.exam_final_md4.formatter.DateFormatterUtil;
 import com.codegym.exam_final_md4.model.Customer;
 import com.codegym.exam_final_md4.model.Deal;
@@ -45,11 +46,6 @@ public class DealController {
     @GetMapping
     public String dealList(Model model) {
         List<Deal> deals = dealService.getAllDeals();
-
-        for (Deal deal : deals) {
-            String formattedDate = DateFormatterUtil.formatLocalDate(deal.getDateOfDeal());
-            deal.setFormattedDate(formattedDate);
-        }
         model.addAttribute("deals", deals);
         return "/deal/list";
     }
@@ -79,6 +75,10 @@ public class DealController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+        if (deal.getCustomer() == null) {
+            bindingResult.rejectValue("customer", "error.deal", "Vui lòng chọn khách hàng.");
+        }
+
         if (bindingResult.hasErrors()) {
             return "/deal/new";
         }
@@ -113,6 +113,7 @@ public class DealController {
 
         List<Deal> deals = dealService.searchDeal(customerName, serviceTypeId);
         List<ServiceType> serviceTypes = serviceTypeService.getAllServiceTypes();
+
         model.addAttribute("deals", deals);
         model.addAttribute("serviceTypes", serviceTypes);
         model.addAttribute("customerName", customerName);

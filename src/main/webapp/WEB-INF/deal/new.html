@@ -65,7 +65,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #45a049;
+            opacity: 0.9;
         }
 
         div > div {
@@ -85,15 +85,32 @@
         }
 
         a {
+            width: 82px;
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin: 30px 0;
             color: #333;
             text-decoration: none;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: white;
+            background-color: #666;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -110,7 +127,7 @@
         <div>
             <label>Khách hàng:</label>
             <select th:field="*{customer}">
-                <option value="" disabled>-- Chọn khách hàng --</option>
+                <option value="" selected>-- Chọn khách hàng --</option>
                 <option th:each="customer : ${customers}"
                         th:value="${customer.id}"
                         th:text="${customer.fullname}"></option>
@@ -148,11 +165,11 @@
             <span th:if="${#fields.hasErrors('acreage')}"
                   th:errors="*{acreage}"></span>
         </div>
-        <div>
+        <div style="display: flex; align-items: center; justify-content: space-evenly">
             <button type="submit">Thêm mới</button>
+            <a class="btn" th:href="@{/deal}">Hủy</a>
         </div>
     </form>
-    <a th:href="@{/deal}">Quay lại danh sách</a>
     <footer th:replace="/layout :: footer"></footer>
 </body>
 </html>
