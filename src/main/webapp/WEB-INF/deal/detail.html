@@ -1,0 +1,38 @@
+<h2>Chi tiết giao dịch</h2>
+<table>
+  <tr>
+    <td>Mã giao dịch:</td>
+    <td th:text="${deal.dealCode}"></td>
+  </tr>
+  <tr>
+    <td>Loại dịch vụ:</td>
+    <td th:text="${deal.serviceType}"></td>
+  </tr>
+  <tr>
+    <td>Ngày giao dịch:</td>
+    <td th:text="${deal.dateOfDeal}"></td>
+  </tr>
+  <tr>
+    <td>Đơn giá (VND/m2):</td>
+    <td th:text="${deal.price}"></td>
+  </tr>
+  <tr>
+    <td>Diện tích (m2):</td>
+    <td th:text="${deal.acreage}"></td>
+  </tr>
+  <tr>
+    <td>Tên khách hàng:</td>
+    <td th:text="${customer.fullname}"></td>
+  </tr>
+  <tr>
+    <td>Số điện thoại:</td>
+    <td th:text="${customer.phone}"></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td th:text="${customer.email}"></td>
+  </tr>
+</table>
+
+<a href="#" th:href="@{/deal}">Quay lại</a>
+

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm mới giao dịch</title>
+</head>
+<body>
+<head th:replace="/layout :: head">
+<h1>Thêm mới giao dịch</h1>
+<form th:action="@{/deal/new}" th:object="${deal}" method="post">
+    <div>
+        <label>Mã giao dịch:</label>
+        <input type="text" th:field="*{dealCode}"/>
+        <span th:if="${#fields.hasErrors('dealCode')}"
+              th:errors="*{dealCode}"></span>
+    </div>
+    <div>
+        <label>Khách hàng:</label>
+        <select th:field="*{customer}">
+            <option value="" disabled>-- Chọn khách hàng --</option>
+            <option th:each="customer : ${customers}"
+                    th:value="${customer.id}"
+                    th:text="${customer.fullname}"></option>
+        </select>
+        <span th:if="${#fields.hasErrors('customer')}"
+              th:errors="*{customer}"></span>
+    </div>
+    <div>
+        <label>Loại dịch vụ:</label>
+        <select id="serviceType" name="serviceType" required>
+            <option th:each="serviceType : ${serviceTypes}"
+                    th:value="${serviceType.id}"
+                    th:text="${serviceType.name}"></option>
+        </select>
+        <span th:if="${#fields.hasErrors('serviceType')}"
+              th:errors="*{serviceType}"></span>
+    </div>
+    <div>
+        <label>Ngày giao dịch:</label>
+        <input type="date" th:field="*{dateOfDeal}"/>
+        <span th:if="${#fields.hasErrors('dateOfDeal')}"
+              th:errors="*{dateOfDeal}"></span>
+    </div>
+    <div>
+        <label>Đơn giá (VND/m2):</label>
+        <input type="number" th:field="*{price}"/>
+        <span th:if="${#fields.hasErrors('price')}"
+              th:errors="*{price}"></span>
+    </div>
+    <div>
+        <label>Diện tích (m2):</label>
+        <input type="number" th:field="*{acreage}"/>
+        <span th:if="${#fields.hasErrors('acreage')}"
+              th:errors="*{acreage}"></span>
+    </div>
+    <div>
+        <button type="submit">Thêm mới</button>
+    </div>
+</form>
+<a th:href="@{/deal}">Quay lại danh sách</a>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
